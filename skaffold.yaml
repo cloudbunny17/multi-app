@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: cicd-demo
+build:
+  artifacts:
+  - image: gcr.io/spiritual-aloe-317711/chetan-clouddeploy-image
+    docker:
+      dockerfile: .deploy/base/Dockerfile.nginx
+  - image: gcr.io/spiritual-aloe-317711/vue-clouddeploy-image
+    docker:
+      dockerfile: .deploy/base/Dockerfile.vue
+deploy:
+  kubectl:
+    manifests:
+    - .deploy/base/k8s/deployments/nginx-deployment.yaml
+    - .deploy/base/k8s/deployments/vue-deployment.yaml
+  
