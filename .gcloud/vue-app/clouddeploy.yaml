@@ -1,0 +1,44 @@
+#Delivery Pipeline for our clusters
+
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: vue-app
+description: main application pipeline
+serialPipeline:
+  stages:
+  - targetId: qsdev
+  - targetId: qsprod
+---
+
+#Our 1st Cluster TARGET
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: qsdev
+description: development cluster
+gke:
+ cluster:  projects/spiritual-aloe-317711/locations/europe-west2/clusters/chetan-test-cluster
+executionConfigs:
+- defaultPool:
+    serviceAccount: chetan@spiritual-aloe-317711.iam.gserviceaccount.com
+  usages:
+  - RENDER 
+  - DEPLOY   
+---
+#Our 2st Cluster TARGET
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: qsprod
+description: production cluster
+requireApproval: true
+gke:
+ cluster:  projects/spiritual-aloe-317711/locations/europe-west2/clusters/chetan-prod-cluster
+executionConfigs:
+- defaultPool:
+    serviceAccount: chetan@spiritual-aloe-317711.iam.gserviceaccount.com
+  usages:
+  - RENDER 
+  - DEPLOY
