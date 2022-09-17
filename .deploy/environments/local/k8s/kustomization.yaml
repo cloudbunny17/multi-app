@@ -1,0 +1,8 @@
+namespace: demo-local
+commonLabels:
+  environment: local
+
+resources:
+- ../../../base/k8s/deployments
+- ../../../base/k8s/services
+- namespace.yaml
