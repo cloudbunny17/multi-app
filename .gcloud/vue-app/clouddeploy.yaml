@@ -9,6 +9,7 @@ serialPipeline:
   stages:
   - targetId: qsdev
   - targetId: qsprod
+    profiles: vue
 ---
 
 #Our 1st Cluster TARGET
